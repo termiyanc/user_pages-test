@@ -12,18 +12,29 @@
         body{
             margin-top: 10px;
         }
-        table{
+        table.pages{
             border-collapse: collapse;
+            background: #f5f5f5;
+            margin: 10px 0;
         }
-        tr:first-child{
-            padding: 0;
+        table.pages td{
+            padding: 5px;
         }
-        .page-action *{
+        a{
+            text-decoration: none;
+            border-bottom: 1px solid #000;
+        }
+        a:hover{
+            border-bottom: none;
+        }
+        .page-link{
+            border-bottom-style: dotted;
+        }
+        .page-action{
             font-style: italic;
-            color: #8c8c8c;
         }
         div.block{
-            margin-bottom: 5px;
+            margin-bottom: 10px;
         }
     </style>
 </head>

@@ -4,16 +4,16 @@
 if ($pages) {
     ?>
     <div>Ваши страницы:</div>
-    <table>
+    <table class="pages">
         <?php
         foreach ($pages as $page) {
-            ?>
-            <tr>
-                <td><a href='<?=$this->url('pages', 'view', [$page['id']])?>'><?=$page['title']?></a></td>
-                <td class="page-action"><a href='<?=$this->url('pages', 'change', [$page['id']])?>'>Изменить</a></td>
-                <td class="page-action"><a href='<?=$this->url('pages', 'delete', [$page['id']])?>'>Удалить</a></td>
-            </tr>
-            <?php
+        ?>
+        <tr>
+            <td class="first-cell"><a href='<?=$this->url('pages', 'view', [$page['id']])?>' class="page-link"><?=$page['title']?></a></td>
+            <td><a href='<?=$this->url('pages', 'change', [$page['id']])?>' class="page-action">Изменить</a></td>
+            <td><a href='<?=$this->url('pages', 'delete', [$page['id']])?>' class="page-action">Удалить</a></td>
+        </tr>
+        <?php
         }
         ?>
     </table>
