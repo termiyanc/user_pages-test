@@ -20,13 +20,13 @@ class Login extends Controller
         if ($this->user) {
             $this->deleteUserSessions();
         }
-        //  Определяю пользователя
-        if ($this->user = Db::getRow("SELECT id, name
+        if ($_POST) {
+            //  Определяю пользователя
+            $this->user = Db::getRow("SELECT id, name
                                       FROM   user
-                                      WHERE  name = '$_POST[name]' and password = md5('$_POST[password]')")) {
-
+                                      WHERE  name = '$_POST[name]' and password = md5('$_POST[password]')");
+            //  Определяю идентификатор сессии и отправляю соответствующую куку
             $sessionId = md5($this->user['name']);
-
             setcookie(Config::get('session.cookie'), $sessionId);
             //  Удаляю сессии входящего пользователя
             $this->deleteUserSessions($this->user['id']);
@@ -34,14 +34,13 @@ class Login extends Controller
             Db::query("INSERT user_session(user_id, session_id, started, expires)
                        SELECT {$this->user['id']}, '$sessionId', now(), date_add(now(), INTERVAL ".Config::get('session.expires')." SECOND)");
             //  Определяю страницы пользователя
-
             $this->render('Main/main', ['pages' => Db::query("SELECT id, title
                                                               FROM   page
                                                               WHERE  user_id = {$this->user['id']}
                                                               ORDER 
                                                               BY     created_at")]);
-
         } else {
+            //  Вывожу форму авторизации
             $this->render('login');
         }
     }
@@ -51,8 +50,11 @@ class Login extends Controller
      */
     public function actionLogout()
     {
+        //  Обнуляю куку
         setcookie(Config::get('session.cookie'));
+        //  Удаляю сессии выходящего пользователя
         $this->deleteUserSessions();
+        //  Вывожу форму авторизации
         $this->render('login');
     }
 
