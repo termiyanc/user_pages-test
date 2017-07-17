@@ -114,7 +114,7 @@ class Controller
     {
         $url = BASE_URL."?route=$controller/$action";
         if ($params) {
-            foreach ($params as $param) {
+            foreach ((array)$params as $param) {
                 $url .= '/'.rawurlencode($param);
             }
         }
