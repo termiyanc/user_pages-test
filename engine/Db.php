@@ -12,7 +12,11 @@ class Db
      */
     public static function init()
     {
-        self::$connection = new \PDO('mysql:host=' . Config::get('db.host') . ';dbname=' . Config::get('db.db_name'), Config::get('db.user'), Config::get('db.password'));
+        if (extension_loaded('PDO')) {
+            self::$connection = new \PDO('mysql:host=' . Config::get('db.host') . ';dbname=' . Config::get('db.db_name'), Config::get('db.user'), Config::get('db.password'));
+        } else {
+            die('Не подключено расширение PDO!');
+        }
     }
 
     /**
