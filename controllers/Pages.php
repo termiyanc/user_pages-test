@@ -14,9 +14,10 @@ class Pages extends Controller
      */
     public function actionView($id)
     {
-        $page = current(Db::query("SELECT   title, header, general_content, additional_content
-                                   FROM   page
-                                   WHERE  id = $id and user_id = {$this->user['id']}"));
+        $page = Db::getRow("SELECT title, header, general_content, additional_content
+                            FROM   page
+                            WHERE  id = $id and user_id = {$this->user['id']}");
+        //  Вывожу страницу вне рамок общего шаблона
         $this->render('view', compact('page'), null);
     }
 
@@ -53,8 +54,8 @@ class Pages extends Controller
             $this->redirect($this->url('pages', 'view', $id));
         } else {
             $this->render('change', ['page' => Db::getRow("SELECT id, title, header, general_content, additional_content
-                                                                 FROM   page
-                                                                 WHERE  id = $id and user_id = {$this->user['id']}")]);
+                                                           FROM   page
+                                                           WHERE  id = $id and user_id = {$this->user['id']}")]);
         }
     }
 
