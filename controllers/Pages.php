@@ -73,4 +73,21 @@ class Pages extends Controller
         //  Произвожу перенаправление на основной адрес
         $this->redirect();
     }
+
+    /**
+     * Метод отвечает за поиск по страницам
+     */
+    public function actionSearch()
+    {
+        //  Записываю в сессию данные поиска
+        $this->setSessionData(['searchValue' => $_POST['search_value'], 'searchResults' => Db::query("SELECT id, title, header, general_content, additional_content
+                                                                                                      FROM   page
+                                                                                                      WHERE  user_id = {$this->user['id']} and 
+                                                                                                             (title like '%$_POST[search_value]%' or 
+                                                                                                              header like '%$_POST[search_value]%' or 
+                                                                                                              general_content like '%$_POST[search_value]%' or 
+                                                                                                              additional_content like '%$_POST[search_value]%')")]);
+        //  Произвожу перенаправление на основной адрес
+        $this->redirect();
+    }
 }

@@ -25,6 +25,23 @@ if ($pages) {
 }
 ?>
 </div>
+<?php
+if ($pages) {
+?>
+<div class="block with-underline">
+<?php
+    $this->element('Pages/search');
+?>
+<div class="block">
+    <form action="<?=$this->url('pages', 'search')?>" method="post">
+        <label>Искать среди страниц: <input type="text" name="search_value"/></label>
+        <input type="submit" value="Найти"/>
+    </form>
+</div>
+</div>
+<?php
+}
+?>
 <div class="block">
     <a href='<?=$this->url('pages', 'create')?>'>Добавить страницу</a>
     <a href='<?=$this->url('login', 'logout')?>'>Выйти</a>
