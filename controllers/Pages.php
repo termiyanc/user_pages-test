@@ -18,7 +18,7 @@ class Pages extends Controller
     public function actionView($id)
     {
         //  Вывожу страницу вне рамок общего шаблона
-        $this->render('view', ['page' => Db::getRow("SELECT title, header, general_content, additional_content
+        $this->render('view', ['page' => Db::getRow("SELECT id, title, header, general_content, additional_content
                                                      FROM   page
                                                      WHERE  id = $id and user_id = {$this->user['id']}")], null);
     }
@@ -31,8 +31,10 @@ class Pages extends Controller
         if ($_POST) {
             Db::query("INSERT page(user_id, title, header, general_content, additional_content, created_at) 
                        SELECT {$this->user['id']}, '$_POST[title]', '$_POST[header]', '$_POST[general_content]', '$_POST[additional_content]', now()");
-            //  Произвожу перенаправление на основной адрес
-            $this->redirect();
+            //  Вывожу страницу
+            $this->redirect($this->url('Pages', 'view', Db::getColumn("SELECT max(id) as id
+                                                                       FROM   page
+                                                                       WHERE  user_id = {$this->user['id']}", 'id')));
         } else {
             $this->render('create');
         }
@@ -52,8 +54,8 @@ class Pages extends Controller
                               additional_content = '$_POST[additional_content]', 
                               updated_at = now()
                        WHERE  id = $id and user_id = {$this->user['id']}");
-            //  Произвожу перенаправление на основной адрес
-            $this->redirect();
+            //  Вывожу страницу
+            $this->redirect($this->url('Pages', 'view', $id));
         } else {
             $this->render('change', ['page' => Db::getRow("SELECT id, title, header, general_content, additional_content
                                                            FROM   page
