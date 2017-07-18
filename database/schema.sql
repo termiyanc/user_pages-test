@@ -11,6 +11,7 @@ CREATE TABLE user(
 CREATE TABLE user_session(
   user_id INT UNSIGNED NOT NULL COMMENT 'Идентификатор пользователя',
   session_id varchar(255) NOT NULL COMMENT 'Идентификатор сессии',
+  data TEXT COMMENT 'Данные сессии',
   started DATETIME NOT NULL COMMENT 'Начало сессии',
   expires DATETIME NOT NULL COMMENT 'Истечение сессии',
   CONSTRAINT `PK_user_session_user_id_session_id` PRIMARY KEY (user_id, session_id),
@@ -28,3 +29,5 @@ CREATE TABLE page(
   updated_at DATETIME COMMENT 'Когда страница обновлена',
   CONSTRAINT `FK_page_user_id` FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE InnoDB COMMENT 'Страница';
+
+ALTER TABLE user_session ADD COLUMN data TEXT COMMENT 'Данные в сессии';
