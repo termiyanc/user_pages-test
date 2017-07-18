@@ -4,22 +4,7 @@ if ($page) {
 <html>
 <head>
     <title><?=$page['title']?></title>
-    <style type="text/css">
-        *{
-            color: #000;
-            font-family: Verdana;
-        }
-        .header{
-            font-size: 16pt;
-        }
-        .general-content,
-        .additional-content{
-            font-size: 12pt;
-        }
-        .additional-content{
-            color: #8c8c8c;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="<?=$this->asset('css/view.css')?>">
 </head>
 <body>
     <div class="header"><?=$page['header']?></div>

@@ -1,0 +1,14 @@
+*{
+    color: #000;
+    font-family: Verdana;
+}
+.header{
+    font-size: 16pt;
+}
+.general-content,
+.additional-content{
+    font-size: 12pt;
+}
+.additional-content{
+    color: #8c8c8c;
+}

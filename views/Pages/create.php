@@ -1,13 +1,5 @@
 <style type="text/css">
-    label input,
-    label textarea{
-        display: block;
-        margin-bottom: 5px;
-    }
-    label textarea{
-        width: 300px;
-        height: 80px;
-    }
+    <?=$this->asset('css/page.css', true)?>
 </style>
 <form method="post">
     <label>Заголовок: <input type="text" name="title"/></label>
