@@ -120,9 +120,4 @@ class Controller
         }
         return $url;
     }
-
-    public function setUser()
-    {
-        $this->user;
-    }
 }
