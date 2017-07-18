@@ -2,7 +2,6 @@
 namespace Engine;
 /**
  * Класс маршрутизации
- * @package Engine
  */
 class Router
 {

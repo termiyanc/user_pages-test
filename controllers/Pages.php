@@ -26,7 +26,6 @@ class Pages extends Controller
     public function actionCreate()
     {
         if ($_POST) {
-            //  Добавляю страницу
             Db::query("INSERT page(user_id, title, header, general_content, additional_content, created_at) 
                        SELECT {$this->user['id']}, '$_POST[title]', '$_POST[header]', '$_POST[general_content]', '$_POST[additional_content]', now()");
             //  Произвожу перенаправление на основной адрес
@@ -43,7 +42,6 @@ class Pages extends Controller
     public function actionChange($id)
     {
         if ($_POST) {
-            //  Обновляю страницу
             Db::query("UPDATE page
                        SET    title = '$_POST[title]', 
                               header = '$_POST[header]', 
@@ -66,7 +64,6 @@ class Pages extends Controller
      */
     public function actionDelete($id)
     {
-        //  Удаляю страницу
         Db::query("DELETE 
                    FROM   page
                    WHERE  id = $id and user_id = {$this->user['id']}");
@@ -79,7 +76,8 @@ class Pages extends Controller
      */
     public function actionSearch()
     {
-        //  Записываю в сессию данные поиска
+        //  Произвожу поиск,
+        //  записываю в сессию данные поиска
         $this->setSessionData(['searchValue' => $_POST['search_value'], 'searchResults' => Db::query("SELECT id, title, header, general_content, additional_content
                                                                                                       FROM   page
                                                                                                       WHERE  user_id = {$this->user['id']} and 

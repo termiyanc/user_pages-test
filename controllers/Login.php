@@ -61,7 +61,7 @@ class Login extends Controller
     private function deleteUserSessions($userId = null)
     {
         if ($userId = $userId ? : $this->user['id']) {
-            //  Удаляю строки сессий, связанные с пользователем
+            //  Удаляю строки сессий пользователя
             Db::query("DELETE 
                        FROM   user_session
                        WHERE  user_id = $userId");
