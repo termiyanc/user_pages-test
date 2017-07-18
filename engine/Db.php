@@ -1,5 +1,6 @@
 <?php
 namespace Engine;
+
 /**
  * Класс базы данных
  */

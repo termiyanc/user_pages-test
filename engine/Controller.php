@@ -1,5 +1,6 @@
 <?php
 namespace Engine;
+
 /**
  * Базовый класс контроллера
  */
@@ -7,18 +8,17 @@ class Controller
 {
     //  Директория представлений
     const VIEWS_DIR = 'views';
-    //  Директория подключаемых файлов
+    //  Директория подключаемых ресурсов
     const ASSETS_DIR = 'assets';
 
     //  Пользователь
-    protected $user;
+    public $user;
+    //  Данные в сессии
+    public $sessionData;
     //  Должна ли быть авторизация при работе с контроллером
     protected $authorized;
     //  Действие по умолчанию
     public $defaultAction = 'actionIndex';
-
-    //  Данные в сессии
-    public $sessionData;
 
     /*
      * Метод-конструктор. Проверяет авторизацию
@@ -117,7 +117,8 @@ class Controller
     }
 
     /**
-     * Метод определяет, существует ли файл представления, элемент
+     * Метод определяет, существует ли файл представления, элемент,
+     * допуская, что файл может быть с различными расширениями
      * @param  string $view
      * @param  array  $extensions
      * @return bool|string
@@ -127,7 +128,7 @@ class Controller
         $viewsDirWithRoot = ROOT . '/' . self::VIEWS_DIR . '/';
         if ($extensions) {
             foreach ($extensions as $extension) {
-                if (file_exists($filePath = $viewsDirWithRoot . Tools::getOwnClassName($this) .'/'. "$view$extension")) {
+                if (file_exists($filePath = $viewsDirWithRoot . Tools::getOwnClassName($this) . '/' . "$view$extension")) {
                     return $filePath;
                 }
                 if (file_exists($filePath = $viewsDirWithRoot . "$view$extension")) {
@@ -169,14 +170,14 @@ class Controller
 
     /**
      * Метод генерирует url
-     * @param string $controller
-     * @param string $action
-     * @param array $params
+     * @param  string $controller
+     * @param  string $action
+     * @param  array  $params
      * @return string
      */
     public function url($controller, $action = '', $params = [])
     {
-        $url = BASE_URL."?route=$controller/$action";
+        $url = BASE_URL . "?route=$controller/$action";
         if ($params) {
             foreach ((array)$params as $param) {
                 $url .= '/'.rawurlencode($param);

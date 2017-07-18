@@ -1,13 +1,16 @@
 <?php
 namespace Controllers;
+
 use Engine\Controller;
 use Engine\Db;
+
 /**
  * Контроллер работы со страницами
  */
 class Pages extends Controller
 {
     protected $authorized = true;
+
     /**
      * Метод отвечает за просмотр страницы
      * @param integer $id

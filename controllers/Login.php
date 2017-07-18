@@ -36,7 +36,6 @@ class Login extends Controller
             //  Произвожу перенаправление на основной адрес
             $this->redirect();
         } else {
-            //  Вывожу форму авторизации
             $this->render('login');
         }
     }
@@ -50,7 +49,6 @@ class Login extends Controller
         setcookie(Config::get('session.cookie'));
         //  Удаляю сессии выходящего пользователя
         $this->deleteUserSessions();
-        //  Вывожу форму авторизации
         $this->render('login');
     }
 

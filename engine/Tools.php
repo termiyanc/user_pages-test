@@ -1,9 +1,10 @@
 <?php
 namespace Engine;
+
 /**
  * Служебный класс
  */
-Class Tools
+class Tools
 {
     /**
      * Метод определяет непосредственное имя класса

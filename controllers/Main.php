@@ -16,7 +16,6 @@ class Main extends Controller
      */
     public function actionIndex()
     {
-        //  Определяю страницы пользователя
         $this->render('main', ['pages' => Db::query("SELECT id, title, header, general_content, additional_content
                                                      FROM   page
                                                      WHERE  user_id = {$this->user['id']}
