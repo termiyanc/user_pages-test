@@ -14,11 +14,10 @@ class Pages extends Controller
      */
     public function actionView($id)
     {
-        $page = Db::getRow("SELECT title, header, general_content, additional_content
-                            FROM   page
-                            WHERE  id = $id and user_id = {$this->user['id']}");
         //  Вывожу страницу вне рамок общего шаблона
-        $this->render('view', compact('page'), null);
+        $this->render('view', ['page' => Db::getRow("SELECT title, header, general_content, additional_content
+                                                     FROM   page
+                                                     WHERE  id = $id and user_id = {$this->user['id']}")], null);
     }
 
     /**
@@ -27,11 +26,11 @@ class Pages extends Controller
     public function actionCreate()
     {
         if ($_POST) {
+            //  Добавляю страницу
             Db::query("INSERT page(user_id, title, header, general_content, additional_content, created_at) 
                        SELECT {$this->user['id']}, '$_POST[title]', '$_POST[header]', '$_POST[general_content]', '$_POST[additional_content]', now()");
-            $this->redirect($this->url('pages', 'view', [Db::getColumn("SELECT max(id) as id
-                                                                        FROM   page
-                                                                        WHERE  user_id = {$this->user['id']}", 'id')]));
+            //  Произвожу перенаправление на основной адрес
+            $this->redirect();
         } else {
             $this->render('create');
         }
@@ -44,6 +43,7 @@ class Pages extends Controller
     public function actionChange($id)
     {
         if ($_POST) {
+            //  Обновляю страницу
             Db::query("UPDATE page
                        SET    title = '$_POST[title]', 
                               header = '$_POST[header]', 
@@ -51,7 +51,8 @@ class Pages extends Controller
                               additional_content = '$_POST[additional_content]', 
                               updated_at = now()
                        WHERE  id = $id and user_id = {$this->user['id']}");
-            $this->redirect($this->url('pages', 'view', $id));
+            //  Произвожу перенаправление на основной адрес
+            $this->redirect();
         } else {
             $this->render('change', ['page' => Db::getRow("SELECT id, title, header, general_content, additional_content
                                                            FROM   page
@@ -65,9 +66,11 @@ class Pages extends Controller
      */
     public function actionDelete($id)
     {
+        //  Удаляю страницу
         Db::query("DELETE 
                    FROM   page
                    WHERE  id = $id and user_id = {$this->user['id']}");
-        $this->redirect($this->url('main'));
+        //  Произвожу перенаправление на основной адрес
+        $this->redirect();
     }
 }

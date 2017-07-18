@@ -33,12 +33,8 @@ class Login extends Controller
             //  Создаю сессию пользователя
             Db::query("INSERT user_session(user_id, session_id, started, expires)
                        SELECT {$this->user['id']}, '$sessionId', now(), date_add(now(), INTERVAL ".Config::get('session.expires')." SECOND)");
-            //  Определяю страницы пользователя
-            $this->render('Main/main', ['pages' => Db::query("SELECT id, title
-                                                              FROM   page
-                                                              WHERE  user_id = {$this->user['id']}
-                                                              ORDER 
-                                                              BY     created_at")]);
+            //  Произвожу перенаправление на основной адрес
+            $this->redirect();
         } else {
             //  Вывожу форму авторизации
             $this->render('login');
