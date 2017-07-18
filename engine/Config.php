@@ -8,12 +8,16 @@ class Config
     private static $config;
 
     /**
-     * Метод инициализирует конфигуратор
-     * @param string $configDir
+     * Метод определяет конфигурацию
+     * @param string $configPath
      */
-    public static function init($configDir)
+    public static function init($configPath)
     {
-        self::$config = include $configDir;
+        if (file_exists($configPath)) {
+            self::$config = include $configPath;
+        } else {
+            die('Не определен файл конфигурации!');
+        }
     }
 
     /**
