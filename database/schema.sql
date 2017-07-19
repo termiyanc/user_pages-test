@@ -29,5 +29,3 @@ CREATE TABLE page(
   updated_at DATETIME COMMENT 'Когда страница обновлена',
   CONSTRAINT `FK_page_user_id` FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE InnoDB COMMENT 'Страница';
-
-ALTER TABLE user_session ADD COLUMN data TEXT COMMENT 'Данные в сессии';
