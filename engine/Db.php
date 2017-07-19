@@ -15,7 +15,7 @@ class Db
     {
         if (extension_loaded('PDO')) {
             if ($dbConfig = Config::get('db')) {
-                self::$connection = new \PDO("mysql:host=$dbConfig[host];dbname=$dbConfig[db_name]", $dbConfig['user'], $dbConfig['password']);
+                self::$connection = new \PDO("mysql:host=$dbConfig[host];".($dbConfig['port'] !== null ? "port=$dbConfig[port];" : '')."dbname=$dbConfig[db_name]", $dbConfig['user'], $dbConfig['password']);
             } else {
                 die('Отсутствуют параметры для соединения с базой данных!');
             }
