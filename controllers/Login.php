@@ -25,9 +25,9 @@ class Login extends Controller
             $this->user = Db::getRow("SELECT id, name
                                       FROM   user
                                       WHERE  name = '$_POST[name]' and password = md5('$_POST[password]')");
-            //  Определяю идентификатор сессии по имени пользователя
+            //  Генерирую идентификатор сессии по имени пользователя и id
             //  и устанавливаю соответствующую куку
-            $sessionId = md5($this->user['name']);
+            $sessionId = md5($this->user['name'].$this->user['id']);
             setcookie(Config::get('session.cookie'), $sessionId);
             //  Удаляю сессии входящего пользователя
             $this->deleteUserSessions($this->user['id']);
