@@ -20,14 +20,13 @@ class Login extends Controller
         if ($this->user) {
             $this->deleteUserSessions();
         }
-        if ($_POST) {
-            //  Определяю пользователя
-            $this->user = Db::getRow("SELECT id, name
-                                      FROM   user
-                                      WHERE  name = '$_POST[name]' and password = md5('$_POST[password]')");
-            //  Определяю идентификатор сессии по имени пользователя
+        //  Если есть $_POST и пользователь определился...
+        if ($_POST and ($this->user = Db::getRow("SELECT id, name
+                                                  FROM   user
+                                                  WHERE  name = '$_POST[name]' and password = md5('$_POST[password]')"))) {
+            //  Генерирую идентификатор сессии по временной метке и id пользователя
             //  и устанавливаю соответствующую куку
-            $sessionId = md5($this->user['name']);
+            $sessionId = md5(time().$this->user['id']);
             setcookie(Config::get('session.cookie'), $sessionId);
             //  Удаляю сессии входящего пользователя
             $this->deleteUserSessions($this->user['id']);
