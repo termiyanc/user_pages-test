@@ -1,6 +1,6 @@
-CREATE DATABASE IF NOT EXISTS energoprof_test CHARACTER SET utf8;
+CREATE DATABASE IF NOT EXISTS user_pages_test CHARACTER SET utf8;
 
-USE energoprof_test;
+USE user_pages_test;
 
 CREATE TABLE user(
   id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY COMMENT 'Идентификатор пользователя',
